@@ -17,7 +17,7 @@ class Program
         services.AddSingleton<IClient>(sp =>
             new TcpClientService(
                 "127.0.0.1",
-                5000,
+                8080,
                 sp.GetRequiredService<IMessageReader>(),
                 sp.GetRequiredService<IMessageWriter>()
             )

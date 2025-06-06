@@ -16,7 +16,7 @@ class Program
 
         services.AddSingleton<IServer>(sp =>
             new TcpServer(
-                5000,  //port
+                8080,  //port
                 sp.GetRequiredService<IClientHandler>()
             )
         );
