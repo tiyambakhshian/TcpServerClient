@@ -11,12 +11,15 @@ class Program
     {
         var services = new ServiceCollection();
 
+        // Register dependencies
         services.AddSingleton<IMessageProcessor, EchoMessageProcessor>();
+        services.AddSingleton<IHealthCheckSender, HealthCheckSender>(); 
         services.AddSingleton<IClientHandler, ClientHandler>();
 
+        // Register server with injected dependencies
         services.AddSingleton<IServer>(sp =>
             new TcpServer(
-                8080,  //port
+                8080,
                 sp.GetRequiredService<IClientHandler>()
             )
         );
@@ -25,6 +28,7 @@ class Program
 
         var server = provider.GetRequiredService<IServer>();
 
+        Console.WriteLine("Server is starting...");
         await server.StartAsync();
     }
 }
